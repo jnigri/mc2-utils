@@ -98,6 +98,32 @@ logger.propagate = False
 # _CONF is a cache of data retrieved throughout processing
 _CONF = {}
 
+def test(config):
+    user_config = config["user"]
+    symm_key_path = user_config["symmetric_key"]
+    print("--- sym key ---")
+    print(symm_key_path)
+    user_symm_key = open(symm_key_path, "rb").read()
+
+    priv_key_path = user_config["private_key"]
+    print("--- priv key ---")
+    print(priv_key_path)
+
+    #sig = sign_data(priv_key_path, user_symm_key)
+    #sig64 = base64.b64encode(sig)
+    print("--- sig ---")
+    sig64 = b'oDPP5IjvYN3GF9oKcgXZd0xVMJi+Hoj7MJmsuUdtGBFvIVdMS5wfRbVZrP819VZSzReaWS0TkC6ElO5MsJCUV4nGn/II7OJMRgTDxwMcxLMUIjjGuMJXO0t9JvfQCsnx059Q/D11XGhwVH3lMuZ9gTNmfG6IpRHlFJ+0W9fBdmjFB0Zc5I8VXBkuA4aCvGjiz6bxhpvzgortZu3DYq+KhaL5jcnKl4RWF1sQ+Fcv7o4cUGNo0yxpjCelSzNu4nxpQGzfL5qDUa/U2lKvkzMK+Rwc+4VEIJV/a19Ml/Otc1w59FYnPKWgNORt3zIxtcudoPUe2QXSGl+eFvOZnGlaJg=='
+    sig = base64.b64decode(sig64)
+    print(sig64)
+    print(sig)
+
+    key_bytes = _construct_signed_key_fb(user_symm_key, sig)
+    print("--- key bytes ---")
+    print(key_bytes)
+
+
+
+
 def _check_call(ret):
     """Check the return value of C API call
 
@@ -1257,7 +1283,13 @@ def configure_job(config):
     # For each enclave public key, encrypt a signedkey object
     enc_keys = []
     for pk in _CONF["enclave_pks"]:
-        enc_keys.append(encrypt_data_with_pk(key_bytes, pk))
+        encrypted_data = encrypt_data_with_pk(key_bytes, pk)
+        print("---- encrypted data ----")
+        print(encrypted_data)
+        print("---- 64 ----")
+        ed64 = base64.b64encode(encrypted_data)
+        print(ed64)
+        enc_keys.append(encrypted_data)
 
     # Return encrypted keys to the head node
     logger.info("Sending client key to enclave")

@@ -1,4 +1,5 @@
 from .core import (
+    test,
     configure_job,
     clear_cache,
     create_cluster,
