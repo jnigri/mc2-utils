@@ -112,3 +112,6 @@ RUN cd /mc2/opaque-sql && source /opt/openenclave/share/openenclave/openenclaver
 
 # Set the working directory to /mc2
 WORKDIR /mc2/client
+
+RUN apt-get update
+RUN apt-get install -y emacs

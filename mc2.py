@@ -280,6 +280,9 @@ if __name__ == "__main__":  # noqa: C901
             mc2.delete_resource_group()
 
         logging.info("teardown finished successfully")
+    
+    elif args.command == "test":
+        print("test")
 
     else:
         logging.error(

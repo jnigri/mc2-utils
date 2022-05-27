@@ -205,3 +205,12 @@ For more thorough documentation MC<sup>2</sup> Client and Opaque SQL, please vis
 
 ## Contact
 Join our [Slack](https://join.slack.com/t/mc2-project/shared_invite/zt-rt3kxyy8-GS4KA0A351Ysv~GKwy8NEQ), open a [GitHub issue](https://github.com/mc2-project/mc2/issues), or send a message to mc2-dev@googlegroups.com.
+
+## JNI
+
+
+```
+
+docker run -it -v ~/Volumes/mc2-volume:/mc2/client/playground  -p 50052:50052 -p 50051:50051  mc2_img /bin/bash
+
+```
